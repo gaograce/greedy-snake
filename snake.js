@@ -9,10 +9,13 @@ let directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 let food, score = 0, gameOver = false, paused = false, win = false
 let speed = 5
 let result = document.getElementById('result')
+let snakeWidth = 10
+let snakeXCnt = canvas.width / snakeWidth
+let snakeYCnt = canvas.height / snakeWidth
 refresh()
-
+//drawSnakeImg()
 function eatFoodCheck(x, y) {
-  if (food && food.x > x && food.x < x + 10 && food.y > y && food.y < y + 10) {
+  if (food && food.x > x && food.x < x + snakeWidth && food.y > y && food.y < y + snakeWidth) {
     food = undefined
     len++
     score += 10
@@ -24,7 +27,7 @@ function eatFoodCheck(x, y) {
 }
 
 function boundaryCheck(x, y) {
-  gameOver = x < 0 || y < 0 || x + 10 > canvas.width || y + 10 > canvas.height
+  gameOver = x < 0 || y < 0 || x + snakeWidth > canvas.width || y + snakeWidth > canvas.height
 }
 
 function snakeCheck(x, y) {
@@ -42,8 +45,8 @@ function refresh() {
     return
   }
   if(!paused) {
-    let x = snake[head].x + 10 * direction[0]
-    let y = snake[head].y + 10 * direction[1]
+    let x = snake[head].x + snakeWidth * direction[0]
+    let y = snake[head].y + snakeWidth * direction[1]
     eatFoodCheck(x, y)
     boundaryCheck(x, y)
     snakeCheck(x, y)
@@ -76,7 +79,7 @@ function refresh() {
 function isInSnake(x, y) {
   for(let i = len; i > 0; i--) {
     let idx = (i + head - len + snake.length) % snake.length
-    if(x > snake[idx].x && x < snake[idx].x + 10 && y > snake[idx].y && y < snake[idx].y + 10) {
+    if(x > snake[idx].x && x < snake[idx].x + snakeWidth && y > snake[idx].y && y < snake[idx].y + snakeWidth) {
       return true
     }
   }
@@ -86,11 +89,11 @@ function isInSnake(x, y) {
 function drawFood() {
   if(!food) {
     food = {}
-    food.x = Math.floor(Math.random() * 50) * 10 + 5
-    food.y = Math.floor(Math.random() * 50) * 10 + 5
+    food.x = Math.floor(Math.random() * snakeXCnt) * snakeWidth + 5
+    food.y = Math.floor(Math.random() * snakeYCnt) * snakeWidth + 5
     while(isInSnake(food.x, food.y)) {
-      food.x = Math.floor(Math.random() * 50) * 10 + 5
-      food.y = Math.floor(Math.random() * 50) * 10 + 5
+      food.x = Math.floor(Math.random() * snakeXCnt) * snakeWidth + 5
+      food.y = Math.floor(Math.random() * snakeYCnt) * snakeWidth + 5
     }
   }
 
@@ -135,13 +138,13 @@ function drawSnake() {
   for(let i = len; i > 0; i--) {
     let idx = (i + head - len + snake.length) % snake.length
     ctx.fillStyle = 'green'
-    ctx.rect(snake[idx].x, snake[idx].y, 10, 10)
+    ctx.rect(snake[idx].x, snake[idx].y, snakeWidth, snakeWidth)
     ctx.fill()
   }
 }
 
 function restart() {
-  snake = [{x: 0, y: 0}, {x: 10, y: 0}, {x: 20, y: 0}]
+  snake = [{x: 0, y: 0}, {x: snakeWidth, y: 0}, {x: snakeWidth * 2, y: 0}]
   head = 2
   len = 3
   direction = [1, 0]
@@ -169,4 +172,3 @@ function speedUp(increment) {
     document.getElementById('speed').innerText = speed
   }
 }
-

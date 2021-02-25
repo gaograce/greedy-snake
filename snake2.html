@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snake</title>
+</head>
+<body style="text-align: center">
+<div id="result" style="position: absolute;top:0;left:0;background: rgba(0, 0, 0, 0.8);width: 100%; height: 100%;z-index:9999;display: none">
+  <div style="color: white;position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);font-size: 50px">
+    <div id="fail" style="padding: 10px;margin-bottom: 20px;">Game Over!</div>
+    <div id="success" style="padding: 10px;margin-bottom: 20px;">You Are Win!</div>
+    <span style="display:block;font-size: 10px;padding: 10px; background: white; color: grey;cursor: pointer;border-radius: 5px;border: 1px solid #eee;text-align: center"
+          onclick="restart()">Restart</span>
+  </div>
+</div>
+<div style="width: 520px;position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);text-align: left">
+  <div style="margin: 10px;float:left;padding: 10px;user-select: none">
+    <span class="button" onclick="pause()" id="pause">Pause</span>
+    <span style="vertical-align: top;padding: 5px 10px;font-size: 14px;line-height: 1;"><span>Speed:</span><span id="speed">5</span></span>
+    <span  class="button" onclick="speedUp(1)">+</span>
+    <span  class="button" onclick="speedUp(-1)">-</span>
+  </div>
+  <span style="vertical-align: top;float: right;padding: 10px;margin: 10px;background: #EEEEEE;color: #333333;border-radius: 5px;"><span>Score:</span><span id="score">0</span></span>
+  <canvas id="canvas" style="border: 10px groove #CCCCCC" width="600" height="600"></canvas>
+</div>
+<script defer src="snake2.js"></script>
+</body>
+<style>
+  .button{
+    padding: 5px 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: pointer;
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 1;
+    outline: 0;
+    white-space: nowrap;
+    color: #333333;
+    background: white;
+  }
+  .button:hover{
+    color: white;
+    background: #333333;
+  }
+</style>
+</html>

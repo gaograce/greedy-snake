@@ -1,7 +1,7 @@
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 let snakeWidth = 20
-let snake = [{x: 0, y: snakeWidth}, {x: 10, y: snakeWidth}, {x: 20, y: snakeWidth}]
+let snake = [{x: 0, y: snakeWidth}, {x: snakeWidth, y: snakeWidth}, {x: snakeWidth * 2, y: snakeWidth}]
 let snakeMaxLen = 1000
 let head = 2
 let len = 3
